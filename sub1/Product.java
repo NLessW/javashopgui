@@ -17,9 +17,8 @@ public class Product {
         return price;
     }
 
-    @Override
     public String toString() {
-        return name + " ($" + price + ")";
+        return name + " - $" + String.format("%.2f", price);
     }
 
 	public int getStock() {
