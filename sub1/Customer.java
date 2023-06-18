@@ -91,12 +91,12 @@ public class Customer {
     }
 
     public static void main(String[] args) {
-        Customer customer = new Customer(1, "±è¿ìÇõ", 12345, "010-6264-9549");
+        Customer customer = new Customer(1, "ê¹€ìš°í˜", 12345, "010-6264-9549");
         System.out.println("Customer Name: " + customer.getCustomerName());
         System.out.println("Customer Phone: " + customer.getCustomerPhone());
 
         // Updating customer information
-        customer.setCustomerName("È«±æµ¿");
+        customer.setCustomerName("í™ê¸¸ë™");
         customer.setCustomerPhone("010-1234-5678");
         System.out.println("Updated Customer Name: " + customer.getCustomerName());
         System.out.println("Updated Customer Phone: " + customer.getCustomerPhone());
