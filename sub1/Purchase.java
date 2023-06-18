@@ -1,9 +1,9 @@
 package sub1;
 
 public class Purchase {
-    private Customer customer; // °í°´ Á¤º¸
-    private Product product; // »óÇ° Á¤º¸
-    private String paymentMethod; // °áÁ¦ ¼ö´Ü
+    private Customer customer; // ê³ ê° ì •ë³´
+    private Product product; // ìƒí’ˆ ì •ë³´
+    private String paymentMethod; // ê²°ì œ ìˆ˜ë‹¨
 
     public Purchase(Customer customer, Product product, String paymentMethod) {
         this.customer = customer;
@@ -12,61 +12,61 @@ public class Purchase {
     }
 
     public boolean processPurchase() {
-        // °í°´ Á¤º¸ È®ÀÎ
+        // ê³ ê° ì •ë³´ í™•ì¸
         if (customer == null || !customer.isValid()) {
-            return false; // °í°´ Á¤º¸°¡ À¯È¿ÇÏÁö ¾ÊÀ½
+            return false; // ê³ ê° ì •ë³´ê°€ ìœ íš¨í•˜ì§€ ì•ŠìŒ
         }
 
-        // »óÇ° °¡¿ë¼º È®ÀÎ
+        // ìƒí’ˆ ê°€ìš©ì„± í™•ì¸
         if (product == null || !product.isAvailable()) {
-            return false; // »óÇ°ÀÌ °¡¿ëÇÏÁö ¾ÊÀ½
+            return false; // ìƒí’ˆì´ ê°€ìš©í•˜ì§€ ì•ŠìŒ
         }
 
-        // °áÁ¦ ¼öÇà
+        // ê²°ì œ ìˆ˜í–‰
         boolean paymentSuccess = performPayment();
         if (!paymentSuccess) {
-            return false; // °áÁ¦ ½ÇÆĞ
+            return false; // ê²°ì œ ì‹¤íŒ¨
         }
 
-        // Àç°í ¾÷µ¥ÀÌÆ®
+        // ì¬ê³  ì—…ë°ì´íŠ¸
         updateInventory();
 
-        // ±¸¸Å ¼º°ø Ã³¸®
+        // êµ¬ë§¤ ì„±ê³µ ì²˜ë¦¬
         return true;
     }
 
     private boolean performPayment() {
-        // °áÁ¦ ¼ö´Ü¿¡ µû¸¥ °áÁ¦ ·ÎÁ÷ ¼öÇà
-        // ¿©±â¿¡ Æ¯Á¤ÇÑ °áÁ¦ ·ÎÁ÷À» ±¸ÇöÇÒ ¼ö ÀÖÀ½
-        // ¿¹¸¦ µé¾î, paymentMethod°¡ "°èÁÂÀÌÃ¼"ÀÎ °æ¿ì °í°´ÀÇ °èÁÂ¿¡¼­ ±İ¾× Â÷°¨
+        // ê²°ì œ ìˆ˜ë‹¨ì— ë”°ë¥¸ ê²°ì œ ë¡œì§ ìˆ˜í–‰
+        // ì—¬ê¸°ì— íŠ¹ì •í•œ ê²°ì œ ë¡œì§ì„ êµ¬í˜„í•  ìˆ˜ ìˆìŒ
+        // ì˜ˆë¥¼ ë“¤ì–´, paymentMethodê°€ "ê³„ì¢Œì´ì²´"ì¸ ê²½ìš° ê³ ê°ì˜ ê³„ì¢Œì—ì„œ ê¸ˆì•¡ ì°¨ê°
 
-        if (paymentMethod.equals("°èÁÂÀÌÃ¼")) {
-            // °èÁÂÀÌÃ¼ °áÁ¦ ·ÎÁ÷ ¼öÇà
-            int customerBalance = customer.getAccountBalance(); // °í°´ÀÇ °èÁÂ ÀÜ¾×
-            double productPrice = product.getPrice(); // »óÇ° °¡°İ
+        if (paymentMethod.equals("ê³„ì¢Œì´ì²´")) {
+            // ê³„ì¢Œì´ì²´ ê²°ì œ ë¡œì§ ìˆ˜í–‰
+            int customerBalance = customer.getAccountBalance(); // ê³ ê°ì˜ ê³„ì¢Œ ì”ì•¡
+            double productPrice = product.getPrice(); // ìƒí’ˆ ê°€ê²©
 
             if (customerBalance >= productPrice) {
-                // ÀÜ¾×ÀÌ ÃæºĞÇÑ °æ¿ì, °èÁÂ¿¡¼­ ±İ¾× Â÷°¨
+                // ì”ì•¡ì´ ì¶©ë¶„í•œ ê²½ìš°, ê³„ì¢Œì—ì„œ ê¸ˆì•¡ ì°¨ê°
                 customer.setAccountBalance(customerBalance - productPrice);
-                return true; // °áÁ¦ ¼º°ø
+                return true; // ê²°ì œ ì„±ê³µ
             } else {
-                // ÀÜ¾× ºÎÁ·
-                return false; // °áÁ¦ ½ÇÆĞ
+                // ì”ì•¡ ë¶€ì¡±
+                return false; // ê²°ì œ ì‹¤íŒ¨
             }
-        } else if (paymentMethod.equals("Ä«µå°áÁ¦")) {
-            // Ä«µå°áÁ¦ ·ÎÁ÷ ¼öÇà
-            // ¿©±â¿¡ Ä«µå °áÁ¦¿¡ ´ëÇÑ ±¸Ã¼ÀûÀÎ ±¸ÇöÀ» Ãß°¡ÇÒ ¼ö ÀÖÀ½
-            // ÀÏ´ÜÀº Ä«µå °áÁ¦°¡ Ç×»ó ¼º°øÇÑ´Ù°í °¡Á¤
-            return true; // °áÁ¦ ¼º°ø
+        } else if (paymentMethod.equals("ì¹´ë“œê²°ì œ")) {
+            // ì¹´ë“œê²°ì œ ë¡œì§ ìˆ˜í–‰
+            // ì—¬ê¸°ì— ì¹´ë“œ ê²°ì œì— ëŒ€í•œ êµ¬ì²´ì ì¸ êµ¬í˜„ì„ ì¶”ê°€í•  ìˆ˜ ìˆìŒ
+            // ì¼ë‹¨ì€ ì¹´ë“œ ê²°ì œê°€ í•­ìƒ ì„±ê³µí•œë‹¤ê³  ê°€ì •
+            return true; // ê²°ì œ ì„±ê³µ
         }
 
-        return false; // À¯È¿ÇÏÁö ¾ÊÀº °áÁ¦ ¼ö´Ü
+        return false; // ìœ íš¨í•˜ì§€ ì•Šì€ ê²°ì œ ìˆ˜ë‹¨
     }
 
     private void updateInventory() {
-        // Àç°í ¾÷µ¥ÀÌÆ® ·ÎÁ÷
-        // ¿¹¸¦ µé¾î, ±¸¸ÅÇÑ »óÇ°ÀÇ Àç°í¸¦ Â÷°¨ÇÔ
-        int currentStock = product.getStock(); // ÇöÀç Àç°í ¼ö·®
-        product.setStock(currentStock - 1); // »óÇ° Àç°í Â÷°¨
+        // ì¬ê³  ì—…ë°ì´íŠ¸ ë¡œì§
+        // ì˜ˆë¥¼ ë“¤ì–´, êµ¬ë§¤í•œ ìƒí’ˆì˜ ì¬ê³ ë¥¼ ì°¨ê°í•¨
+        int currentStock = product.getStock(); // í˜„ì¬ ì¬ê³  ìˆ˜ëŸ‰
+        product.setStock(currentStock - 1); // ìƒí’ˆ ì¬ê³  ì°¨ê°
     }
 }
