@@ -828,7 +828,6 @@ public class PurchaseInfo extends JFrame {
             return null;	//null 반환
         }
 
-        //771번째 줄과 동일
         Object selectedAccount = JOptionPane.showInputDialog(
                 null,
                 "Select an account for payment:",
